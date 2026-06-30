@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Before / After Demo</title>
+<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .ba-container{max-width:900px;margin:60px auto;position:relative}
+  .ba-wrap{position:relative;overflow:hidden}
+  .ba-wrap img{display:block;width:100%;height:auto}
+  .ba-overlay{position:absolute;top:0;left:0;bottom:0;right:0}
+  .ba-after{position:absolute;top:0;left:0;height:100%;overflow:hidden;width:50%}
+  .ba-handle{position:absolute;top:0;bottom:0;left:50%;width:4px;margin-left:-2px;background:rgba(255,255,255,0.8);z-index:5;cursor:ew-resize}
+  .ba-handle:after{content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,0.4)}
+  .ba-caption{margin-top:12px;text-align:center}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="ba-container">
+    <h3 class="text-center">Before / After Image Comparison</h3>
+    <div class="ba-wrap" id="ba-wrap">
+      <img id="before" src="assets/images/menu_banner11.jpg" alt="Before">
+      <div class="ba-after" id="after-wrap">
+        <img id="after" src="assets/images/menu_banner22.jpg" alt="After">
+      </div>
+      <div class="ba-handle" id="ba-handle" aria-hidden="true"></div>
+    </div>
+    <div class="ba-caption text-muted">Drag the divider. Hover either image to zoom (lens mode).</div>
+  </div>
+</div>
+
+<script src="assets/js/jquery-1.12.4.min.js"></script>
+<script src="assets/js/jquery.elevatezoom.js"></script>
+<script>
+(function($){
+  $(function(){
+    var $wrap = $('#ba-wrap');
+    var $after = $('#after-wrap');
+    var $handle = $('#ba-handle');
+    var dragging = false;
+
+    function setPosition(x){
+      var rect = $wrap[0].getBoundingClientRect();
+      var pos = Math.max(0, Math.min(1, (x - rect.left) / rect.width));
+      var pct = (pos * 100) + '%';
+      $after.css('width', pct);
+      $handle.css('left', pct);
+    }
+
+    $handle.on('mousedown touchstart', function(e){
+      e.preventDefault(); dragging = true;
+    });
+    $(document).on('mouseup touchend', function(){ dragging = false; });
+
+    $(document).on('mousemove touchmove', function(e){
+      if(!dragging) return;
+      var clientX = e.originalEvent.touches ? e.originalEvent.touches[0].clientX : e.clientX;
+      setPosition(clientX);
+    });
+
+    // click to move
+    $wrap.on('click', function(e){
+      var clientX = e.clientX || (e.originalEvent && e.originalEvent.touches && e.originalEvent.touches[0].clientX);
+      if(clientX) setPosition(clientX);
+    });
+
+    // initialize ElevateZoom lens on both images
+    try{
+      $('#before').elevateZoom({zoomType: 'lens', lensShape: 'round', lensSize: 200, scrollZoom: false});
+      $('#after').elevateZoom({zoomType: 'lens', lensShape: 'round', lensSize: 200, scrollZoom: false});
+    } catch(e){ console.warn('elevateZoom init error', e); }
+
+    // ensure overlay sizing on resize
+    $(window).on('resize', function(){ setPosition($wrap.offset().left + $wrap.width()/2); });
+
+    // set initial center
+    setPosition($wrap.offset().left + $wrap.width()/2);
+  });
+})(jQuery);
+</script>
+</body>
+</html>
