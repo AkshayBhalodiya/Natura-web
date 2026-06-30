@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Features — Responsive Two-Column</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* small visual helper to match site's look */
+    body { background: #f8fafc; }
+  </style>
+</head>
+<body class="py-12">
+  <div class="max-w-6xl mx-auto px-4">
+    <header class="mb-8 text-center">
+      <h1 class="text-3xl font-bold">Product Features</h1>
+      <p class="text-gray-600 mt-2">Responsive two-column layout — stacks on mobile, side-by-side at md breakpoint.</p>
+    </header>
+
+    <!-- Grid: stacks vertically on small, two columns at md and up -->
+    <section class="grid gap-6 md:grid-cols-2">
+      <!-- Card 1 (ShadCN-like) -->
+      <article class="bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="p-6">
+          <div class="flex items-start space-x-4">
+            <div class="flex-none w-14 h-14 rounded-md bg-indigo-50 flex items-center justify-center text-indigo-600">
+              <!-- icon -->
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold">Fast Performance</h3>
+              <p class="mt-2 text-gray-600">Optimized rendering and lazy-loading keep pages snappy even with many recipes.</p>
+              <div class="mt-4 flex items-center space-x-3">
+                <a class="inline-flex items-center px-3 py-1.5 bg-indigo-600 text-white text-sm rounded-md" href="#">Learn more</a>
+                <span class="text-sm text-gray-500">Trusted by thousands</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 2 (ShadCN-like) -->
+      <article class="bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="p-6">
+          <div class="flex items-start space-x-4">
+            <div class="flex-none w-14 h-14 rounded-md bg-emerald-50 flex items-center justify-center text-emerald-600">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold">Adaptive Layout</h3>
+              <p class="mt-2 text-gray-600">Two-column layout at md and above, stacking on mobile for clear readability.</p>
+              <div class="mt-4">
+                <ul class="text-sm text-gray-600 space-y-2">
+                  <li class="flex items-center"><span class="inline-block w-2 h-2 bg-gray-300 rounded-full mr-3"></span>Mobile-first design</li>
+                  <li class="flex items-center"><span class="inline-block w-2 h-2 bg-gray-300 rounded-full mr-3"></span>Accessible markup</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="p-6">
+          <div class="flex items-start space-x-4">
+            <div class="flex-none w-14 h-14 rounded-md bg-yellow-50 flex items-center justify-center text-yellow-600">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M3 12h18M3 17h18"></path></svg>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold">Customizable</h3>
+              <p class="mt-2 text-gray-600">Easily swap icons, actions and content. Cards follow a simple, reusable pattern.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="bg-white rounded-lg shadow-md overflow-hidden">
+        <div class="p-6">
+          <div class="flex items-start space-x-4">
+            <div class="flex-none w-14 h-14 rounded-md bg-pink-50 flex items-center justify-center text-pink-600">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2"></path></svg>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold">Secure</h3>
+              <p class="mt-2 text-gray-600">Built with secure defaults and best practices in mind.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </section>
+  </div>
+</body>
+</html>
