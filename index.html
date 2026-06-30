@@ -1276,6 +1276,37 @@
 </footer>
 <!-- END FOOTER -->
 
+<!-- Onboarding trigger button -->
+<button id="onboard-trigger" class="btn btn-warning" style="position:fixed;right:20px;bottom:20px;z-index:9999">Start Tour</button>
+
+<!-- Onboarding Modal -->
+<div class="modal fade" id="onboardingModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body p-4">
+                <div id="onboard-step-1" class="onboard-step animated fadeInDown text-center">
+                    <h5 class="mb-3">Welcome to Natura</h5>
+                    <p class="mb-3">Quickly learn the essentials of the site.</p>
+                    <button class="btn btn-primary btn-next" data-next="2">Next</button>
+                    <button class="btn btn-link btn-skip" data-dismiss="modal">Skip</button>
+                </div>
+                <div id="onboard-step-2" class="onboard-step d-none animated slideInLeft text-center">
+                    <h5 class="mb-3">Discover Recipes</h5>
+                    <p class="mb-3">Browse curated recipes and filters.</p>
+                    <button class="btn btn-secondary btn-prev">Back</button>
+                    <button class="btn btn-primary btn-next" data-next="3">Next</button>
+                </div>
+                <div id="onboard-step-3" class="onboard-step d-none animated bounceIn text-center">
+                    <h5 class="mb-3">Save & Enjoy</h5>
+                    <p class="mb-3">Save favorites and come back anytime.</p>
+                    <button class="btn btn-secondary btn-prev">Back</button>
+                    <button class="btn btn-success btn-complete">Finish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <a href="#" class="scrollup" style="display: none;"><i class="ion-ios-arrow-up"></i></a> 
 
 <!-- Latest jQuery --> 
@@ -1304,8 +1335,70 @@
 <script src="assets/js/slick.min.js"></script>
 <!-- elevatezoom js -->
 <script src="assets/js/jquery.elevatezoom.js"></script>
+<!-- jQuery UI (for shake effect) -->
+<script src="assets/js/jquery-ui.js"></script>
 <!-- scripts js --> 
 <script src="assets/js/scripts.js"></script>
+
+<!-- Onboarding modal script: animated steps + shake on dismiss if incomplete -->
+<script>
+    (function($){
+        $(function(){
+            var current = 1;
+            var total = 3;
+            var completed = false;
+
+            function clearAnims($el){
+                $el.removeClass('animated fadeInDown slideInLeft bounceIn');
+            }
+
+            function showStep(n, anim){
+                $('.onboard-step').addClass('d-none');
+                var $step = $('#onboard-step-'+n);
+                clearAnims($step);
+                $step.removeClass('d-none').addClass('animated '+anim);
+                // prev visibility
+                if(n>1) $('.btn-prev').removeClass('d-none'); else $('.btn-prev').addClass('d-none');
+                current = n;
+            }
+
+            // next
+            $(document).on('click', '.btn-next', function(e){
+                var next = $(this).data('next');
+                var anim = (next===2)?'slideInLeft':'bounceIn';
+                showStep(next, anim);
+            });
+
+            // prev
+            $(document).on('click', '.btn-prev', function(e){
+                var prev = Math.max(1, current-1);
+                var anim = (prev===1)?'fadeInDown':'slideInLeft';
+                showStep(prev, anim);
+            });
+
+            // complete
+            $(document).on('click', '.btn-complete', function(){
+                completed = true;
+                $('#onboardingModal').modal('hide');
+            });
+
+            // when modal hides, if not completed -> shake the trigger button
+            $('#onboardingModal').on('hide.bs.modal', function(){
+                if(!completed){
+                    try{ $('#onboard-trigger').effect('shake', {distance:8, times:3}); } catch(e){}
+                }
+            });
+
+            // open modal via trigger
+            $('#onboard-trigger').on('click', function(){
+                completed = false;
+                showStep(1,'fadeInDown');
+                $('#onboardingModal').modal('show');
+            });
+
+        });
+    })(jQuery);
+</script>
 
 </body>
 </html>
